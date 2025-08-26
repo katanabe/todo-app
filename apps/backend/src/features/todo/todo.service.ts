@@ -1,6 +1,6 @@
-import { Todo } from '@prisma/client'
 import { db } from '../../shared/database/connection'
 import type { CreateTodoInput, UpdateTodoInput } from './todo.validation'
+import type { Prisma } from '@prisma/client'
 
 export const getAllTodos = async () => {
   return await db.todo.findMany({
@@ -24,7 +24,7 @@ export const createTodo = async (data: CreateTodoInput) => {
 }
 
 export const updateTodo = async (id: number, input: UpdateTodoInput) => {
-  const data: Partial<Todo> = {
+  const data: Prisma.TodoUpdateInput = {
     description: input.description || null,
   };
   
