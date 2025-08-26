@@ -10,7 +10,10 @@ export const api = {
     create: (data: { title: string; description?: string }) => 
       client.api.todos.$post({ json: data }),
     update: (id: string, data: { title?: string; description?: string; completed?: boolean }) => 
-      client.api.todos[':id'].$put({ param: { id }, json: data }),
+      client.api.todos[':id'].$put({ 
+        param: { id }, 
+        json: data 
+      }),
     delete: (id: string) => 
       client.api.todos[':id'].$delete({ param: { id } }),
   }
