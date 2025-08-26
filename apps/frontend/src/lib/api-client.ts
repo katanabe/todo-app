@@ -11,9 +11,8 @@ export const api = {
       client.api.todos.$post({ json: data }),
     update: (id: string, data: { title?: string; description?: string; completed?: boolean }) => 
       client.api.todos[':id'].$put({ 
-        param: { id }, 
-        json: data 
-      }),
+        param: { id }
+      } as any),
     delete: (id: string) => 
       client.api.todos[':id'].$delete({ param: { id } }),
   }
