@@ -49,10 +49,30 @@ export default function TodoApp() {
 
   const updateTodo = async (id: number, updates: Partial<Todo>) => {
     try {
-      const apiUpdates = {
-        ...updates,
-        description: updates.description === null ? undefined : updates.description
+      // 最新のデータを取得
+      const getResponse = await api.todos.getById(id.toString())
+      if (!getResponse.ok) {
+        console.error('Failed to fetch todo for update')
+        return
       }
+      
+      const currentData = await getResponse.json()
+      const currentTodo = currentData.data
+      
+      if (!currentTodo) {
+        console.error('Todo not found')
+        return
+      }
+      
+      // 現在の値とマージ
+      const apiUpdates = {
+        title: updates.title ?? currentTodo.title,
+        description: updates.description !== undefined 
+          ? (updates.description === null ? undefined : updates.description)
+          : currentTodo.description,
+        completed: updates.completed ?? currentTodo.completed
+      }
+      
       const response = await api.todos.update(id.toString(), apiUpdates)
       
       if (response.ok) {
