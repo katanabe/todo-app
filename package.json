@@ -5,7 +5,7 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "pkill -f 'next dev' || pkill -f 'bun run --hot' || true && turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
