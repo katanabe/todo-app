@@ -1,3 +1,4 @@
+import { Todo } from '@prisma/client'
 import { db } from '../../shared/database/connection'
 import type { CreateTodoInput, UpdateTodoInput } from './todo.validation'
 
@@ -22,14 +23,22 @@ export const createTodo = async (data: CreateTodoInput) => {
   })
 }
 
-export const updateTodo = async (id: number, data: UpdateTodoInput) => {
+export const updateTodo = async (id: number, input: UpdateTodoInput) => {
+  const data: Partial<Todo> = {
+    description: input.description || null,
+  };
+  
+  if (input.title) {
+    data.title = input.title;
+  }
+  
+  if (input.completed) {
+    data.completed = input.completed;
+  }
+  
   return await db.todo.update({
     where: { id },
-    data: {
-      ...(data.title !== undefined && { title: data.title }),
-      ...(data.description !== undefined && { description: data.description }),
-      ...(data.completed !== undefined && { completed: data.completed })
-    }
+    data
   })
 }
 
