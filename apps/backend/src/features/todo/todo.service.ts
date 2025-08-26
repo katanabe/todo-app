@@ -23,17 +23,11 @@ export const createTodo = async (data: CreateTodoInput) => {
   })
 }
 
-export const updateTodo = async (id: number, input: UpdateTodoInput) => {
-  const data: Prisma.TodoUpdateInput = {
+export const updateTodo = async (id: number, input: UpdateTodoInput) => {  
+  const data = {
+    title: input.title,
     description: input.description || null,
-  };
-  
-  if (input.title) {
-    data.title = input.title;
-  }
-  
-  if (input.completed) {
-    data.completed = input.completed;
+    ...(input.completed !== undefined && { completed: input.completed })
   }
   
   return await db.todo.update({

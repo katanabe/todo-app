@@ -6,7 +6,7 @@ export const createTodoSchema = z.object({
 })
 
 export const updateTodoSchema = z.object({
-  title: z.string().min(1, 'Title is required').max(255, 'Title must be less than 255 characters').optional(),
+  title: z.string().min(1, 'Title is required').max(255, 'Title must be less than 255 characters'),
   description: z.string().max(1000, 'Description must be less than 1000 characters').optional(),
   completed: z.boolean().optional()
 })
