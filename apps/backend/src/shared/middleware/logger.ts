@@ -1,7 +1,6 @@
-import { logger } from 'hono/logger'
+import { logger } from 'hono/logger';
 
-export const loggerMiddleware = logger((str, ...rest) => {
+export const loggerMiddleware = logger((_str, ..._rest) => {
   if (process.env.NODE_ENV !== 'test') {
-    console.log(str, ...rest)
   }
-})
+});

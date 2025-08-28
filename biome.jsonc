@@ -1,0 +1,102 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+  // Git 連携の設定
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  // 対象ファイルの設定
+  "files": {
+    "includes": ["apps/frontend/**", "apps/backend/**"],
+    "experimentalScannerIgnores": [
+      "node_modules",
+      ".next",
+      "dist",
+      "build",
+      "coverage",
+      "*.min.js",
+      "*.min.css"
+    ]
+  },
+  // アシスト機能の設定
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on" // import 文の自動整理
+      }
+    }
+  },
+  // リンターの設定
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      // 複雑性に関するルール
+      "complexity": {
+        "noForEach": "off", // forEach 使用を許可
+        "noBannedTypes": "error"
+      },
+      // 正確性に関するルール
+      "correctness": {
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error"
+      },
+      // スタイルに関するルール
+      "style": {
+        "noNonNullAssertion": "warn",
+        "useConst": "error",
+        "useTemplate": "error"
+      },
+      // 疑わしいコードに関するルール
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noConsole": "off" // 開発用の console.log を許可
+      }
+    }
+  },
+  // フォーマッターの設定
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "lineEnding": "lf"
+  },
+  // JavaScript/TypeScript 固有の設定
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single", // シングルクォートを使用
+      "trailingCommas": "es5", // ES5 互換の末尾カンマ
+      "semicolons": "always", // セミコロン必須
+      "arrowParentheses": "always" // アロー関数の引数に括弧必須
+    }
+  },
+  // アプリケーション別の設定上書き
+  "overrides": [
+    {
+      // Frontend 固有の設定
+      "includes": ["apps/frontend/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noSvgWithoutTitle": "off", // SVG の title 要素不要
+            "useButtonType": "warn" // button 要素の type 属性は警告
+          }
+        }
+      }
+    },
+    {
+      // Backend 固有の設定
+      "includes": ["apps/backend/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "error" // any 型はエラー（より厳格）
+          }
+        }
+      }
+    }
+  ]
+}
