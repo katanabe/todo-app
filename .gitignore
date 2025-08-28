@@ -75,6 +75,9 @@ prisma/migrations/
 *.tmp
 *.temp
 
+# Serena (development assistant)
+.serena/
+
 # Miscellaneous
 *.pem
 .cache/
