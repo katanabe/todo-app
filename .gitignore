@@ -76,8 +76,10 @@ prisma/migrations/
 *.temp
 
 # Serena (development assistant)
-.serena/
+.serena/cache
 
 # Miscellaneous
 *.pem
-.cache/
+
+# Worktrees
+worktrees
