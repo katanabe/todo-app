@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import { ContentfulStatusCode } from 'hono/utils/http-status';
 
 export interface ApiResponse<T = unknown> {
   data?: T;
@@ -6,35 +7,20 @@ export interface ApiResponse<T = unknown> {
   message?: string;
 }
 
-export const success = <T>(c: Context, data: T, status?: number) => {
-  if (status) {
-    return c.json<ApiResponse<T>>({ data } as ApiResponse<T>, status as any);
-  }
-  return c.json<ApiResponse<T>>({ data } as ApiResponse<T>);
-};
+export const success = <T>(c: Context, data: T, status?: ContentfulStatusCode) => 
+  c.json<ApiResponse<T>>({ data } as ApiResponse<T>, status);
 
-export const created = <T>(c: Context, data: T) => {
-  return c.json<ApiResponse<T>>({ data } as ApiResponse<T>, 201 as any);
-};
+export const created = <T>(c: Context, data: T) => 
+  c.json<ApiResponse<T>>({ data } as ApiResponse<T>, 201);
 
-export const error = (c: Context, error: string, status?: number) => {
-  if (status) {
-    return c.json<ApiResponse>({ error } as ApiResponse, status as any);
-  }
-  return c.json<ApiResponse>({ error } as ApiResponse, 500 as any);
-};
+export const error = (c: Context, error: string, status?: ContentfulStatusCode) => 
+  c.json<ApiResponse>({ error } as ApiResponse, status);
 
-export const badRequest = (c: Context, error: string) => {
-  return c.json<ApiResponse>({ error } as ApiResponse, 400 as any);
-};
+export const badRequest = (c: Context, error: string) => 
+  c.json<ApiResponse>({ error } as ApiResponse, 400);
 
-export const notFound = (c: Context, error: string = 'Resource not found') => {
-  return c.json<ApiResponse>({ error } as ApiResponse, 404 as any);
-};
+export const notFound = (c: Context, error: string = 'Resource not found') => 
+  c.json<ApiResponse>({ error } as ApiResponse, 404);
 
-export const message = (c: Context, message: string, status?: number) => {
-  if (status) {
-    return c.json<ApiResponse>({ message } as ApiResponse, status as any);
-  }
-  return c.json<ApiResponse>({ message } as ApiResponse);
-};
+export const message = (c: Context, message: string, status?: ContentfulStatusCode) => 
+  c.json<ApiResponse>({ message } as ApiResponse, status);
