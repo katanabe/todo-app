@@ -56,6 +56,7 @@ export default function TodoItem({ todo, onUpdate, onDelete }: TodoItemProps) {
     >
       <div className="flex items-start space-x-3">
         <button
+          type="button"
           onClick={handleToggleComplete}
           className={`mt-1 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
             todo.completed
@@ -92,12 +93,14 @@ export default function TodoItem({ todo, onUpdate, onDelete }: TodoItemProps) {
               />
               <div className="flex justify-end space-x-2">
                 <button
+                  type="button"
                   onClick={handleCancelEdit}
                   className="px-3 py-1 text-gray-600 hover:text-gray-800 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
+                  type="button"
                   onClick={handleSaveEdit}
                   className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
                 >
@@ -107,22 +110,25 @@ export default function TodoItem({ todo, onUpdate, onDelete }: TodoItemProps) {
             </div>
           ) : (
             <div className="group">
-              <div
-                className={`font-medium ${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}
+              <button
+                type="button"
+                className={`font-medium text-left w-full ${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}
                 onClick={() => setIsEditing(true)}
               >
                 {todo.title}
-              </div>
+              </button>
               {todo.description && (
-                <div
-                  className={`mt-1 text-sm ${todo.completed ? 'line-through text-gray-400' : 'text-gray-600'}`}
+                <button
+                  type="button"
+                  className={`mt-1 text-sm text-left w-full ${todo.completed ? 'line-through text-gray-400' : 'text-gray-600'}`}
                   onClick={() => setIsEditing(true)}
                 >
                   {todo.description}
-                </div>
+                </button>
               )}
               <div className="flex justify-end space-x-1 opacity-0 group-hover:opacity-100 transition-opacity mt-2">
                 <button
+                  type="button"
                   onClick={() => setIsEditing(true)}
                   className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
                 >
@@ -141,6 +147,7 @@ export default function TodoItem({ todo, onUpdate, onDelete }: TodoItemProps) {
                   </svg>
                 </button>
                 <button
+                  type="button"
                   onClick={handleDelete}
                   className="p-1 text-gray-400 hover:text-red-600 transition-colors"
                 >

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { api } from '@/lib/api-client';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
@@ -18,7 +18,7 @@ export default function TodoApp() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchTodos = async () => {
+  const fetchTodos = useCallback(async () => {
     try {
       const response = await api.todos.getAll();
       if (response.ok) {
@@ -30,7 +30,7 @@ export default function TodoApp() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const addTodo = async (title: string, description?: string) => {
     try {
