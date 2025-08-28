@@ -2,52 +2,55 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main, feat-*]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  test:
+  code-quality:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Bun
-      uses: oven-sh/setup-bun@v2
-      with:
-        bun-version: latest
-    
-    - name: Install dependencies
-      run: bun install
-    
-    - name: Run linter
-      run: |
-        cd apps/frontend
-        bun run lint
-    
-    - name: Build application
-      run: bun run build
-    
-    - name: Type check
-      run: |
-        cd apps/frontend
-        bun run typecheck || bunx tsc --noEmit
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.1.42
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run Biome lint check
+        run: bun run lint
+
+      - name: Run Biome format check  
+        run: bun run format
+
+      - name: Build application
+        run: bun run build
+
+      - name: Type check
+        run: |
+          cd apps/frontend
+          bun run typecheck || bunx tsc --noEmit
 
   security:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Bun
-      uses: oven-sh/setup-bun@v2
-      with:
-        bun-version: latest
-    
-    - name: Install dependencies
-      run: bun install
-    
-    - name: Run security audit
-      run: |
-        # Bun doesn't have built-in audit yet, skip for now
-        echo "Security audit skipped - Bun doesn't have built-in audit command yet"
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.1.42
+      
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      
+      - name: Run security audit
+        run: |
+          # Bun doesn't have built-in audit yet, skip for now
+          echo "Security audit skipped - Bun doesn't have built-in audit command yet"
