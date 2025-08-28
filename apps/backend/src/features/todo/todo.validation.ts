@@ -15,7 +15,8 @@ export const updateTodoSchema = z.object({
   title: z
     .string()
     .min(1, 'Title is required')
-    .max(255, 'Title must be less than 255 characters'),
+    .max(255, 'Title must be less than 255 characters')
+    .optional(),
   description: z
     .string()
     .max(1000, 'Description must be less than 1000 characters')
@@ -26,7 +27,7 @@ export const updateTodoSchema = z.object({
 export const idParamSchema = z.object({
   id: z.string().transform((val) => {
     const num = parseInt(val, 10);
-    if (Number.isNaN(num) || num <= 0) {
+    if (Number.isNaN(num) || num <= 0 || val !== num.toString()) {
       throw new Error('Invalid ID format');
     }
     return num;
