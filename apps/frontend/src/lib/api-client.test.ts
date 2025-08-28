@@ -1,6 +1,6 @@
-describe('API Client Logic', () => {
-  describe('URL construction', () => {
-    it('should construct correct update URL', () => {
+describe('API クライアント ロジック', () => {
+  describe('URL 構築', () => {
+    it('正しい更新 URL を構築する', () => {
       const baseUrl = 'http://localhost:3001';
       const id = '123';
       const expectedUrl = `${baseUrl}/api/todos/${id}`;
@@ -8,10 +8,10 @@ describe('API Client Logic', () => {
       expect(expectedUrl).toBe('http://localhost:3001/api/todos/123');
     });
 
-    it('should construct correct request payload', () => {
+    it('正しいリクエストペイロードを構築する', () => {
       const updateData = {
-        title: 'Updated Todo',
-        description: 'Updated Description',
+        title: '更新された Todo',
+        description: '更新された説明',
         completed: true,
       };
 
@@ -27,8 +27,8 @@ describe('API Client Logic', () => {
     });
   });
 
-  describe('Data transformation', () => {
-    it('should handle partial update data correctly', () => {
+  describe('データ変換', () => {
+    it('部分更新データを正しく処理する', () => {
       const partialUpdate = { completed: true };
       const serialized = JSON.stringify(partialUpdate);
       const deserialized = JSON.parse(serialized);
@@ -36,18 +36,18 @@ describe('API Client Logic', () => {
       expect(deserialized).toEqual({ completed: true });
     });
 
-    it('should handle full update data correctly', () => {
+    it('完全更新データを正しく処理する', () => {
       const fullUpdate = {
-        title: 'New Title',
-        description: 'New Description',
+        title: '新しいタイトル',
+        description: '新しい説明',
         completed: false,
       };
 
       const serialized = JSON.stringify(fullUpdate);
       const deserialized = JSON.parse(serialized);
 
-      expect(deserialized.title).toBe('New Title');
-      expect(deserialized.description).toBe('New Description');
+      expect(deserialized.title).toBe('新しいタイトル');
+      expect(deserialized.description).toBe('新しい説明');
       expect(deserialized.completed).toBe(false);
     });
   });

@@ -5,43 +5,43 @@ import {
   idParamSchema 
 } from './todo.validation';
 
-describe('Simple Test Suite', () => {
-  describe('createTodoSchema validation', () => {
-    it('should validate valid create todo input', () => {
+describe('Todo バリデーションテスト', () => {
+  describe('createTodoSchema バリデーション', () => {
+    it('有効な Todo 作成入力を受け入れる', () => {
       const validInput = {
-        title: 'Test Todo',
-        description: 'Test description'
+        title: 'テスト Todo',
+        description: 'テスト説明'
       };
 
       const result = createTodoSchema.parse(validInput);
       
-      expect(result.title).toBe('Test Todo');
-      expect(result.description).toBe('Test description');
+      expect(result.title).toBe('テスト Todo');
+      expect(result.description).toBe('テスト説明');
     });
 
-    it('should validate create todo input without description', () => {
+    it('説明なしの Todo 作成入力を受け入れる', () => {
       const validInput = {
-        title: 'Test Todo'
+        title: 'テスト Todo'
       };
 
       const result = createTodoSchema.parse(validInput);
       
-      expect(result.title).toBe('Test Todo');
+      expect(result.title).toBe('テスト Todo');
       expect(result.description).toBeUndefined();
     });
 
-    it('should reject empty title', () => {
+    it('空のタイトルを拒否する', () => {
       const invalidInput = {
         title: '',
-        description: 'Test description'
+        description: 'テスト説明'
       };
 
       expect(() => createTodoSchema.parse(invalidInput)).toThrow('Title is required');
     });
   });
 
-  describe('updateTodoSchema validation', () => {
-    it('should validate partial update input with completed only', () => {
+  describe('updateTodoSchema バリデーション', () => {
+    it('完了状態のみの部分更新入力を受け入れる', () => {
       const validInput = {
         completed: true
       };
@@ -51,7 +51,7 @@ describe('Simple Test Suite', () => {
       expect(result.completed).toBe(true);
     });
 
-    it('should accept empty object for updates', () => {
+    it('更新用の空のオブジェクトを受け入れる', () => {
       const emptyInput = {};
 
       const result = updateTodoSchema.parse(emptyInput);
@@ -60,8 +60,8 @@ describe('Simple Test Suite', () => {
     });
   });
 
-  describe('idParamSchema validation', () => {
-    it('should validate valid numeric string id', () => {
+  describe('idParamSchema バリデーション', () => {
+    it('有効な数値文字列 ID を受け入れる', () => {
       const validInput = { id: '123' };
 
       const result = idParamSchema.parse(validInput);
@@ -69,25 +69,25 @@ describe('Simple Test Suite', () => {
       expect(result.id).toBe(123);
     });
 
-    it('should reject non-numeric string id', () => {
+    it('非数値文字列 ID を拒否する', () => {
       const invalidInput = { id: 'abc' };
 
       expect(() => idParamSchema.parse(invalidInput)).toThrow('Invalid ID format');
     });
 
-    it('should reject zero id', () => {
+    it('ゼロの ID を拒否する', () => {
       const invalidInput = { id: '0' };
 
       expect(() => idParamSchema.parse(invalidInput)).toThrow('Invalid ID format');
     });
 
-    it('should reject negative id', () => {
+    it('負の ID を拒否する', () => {
       const invalidInput = { id: '-5' };
 
       expect(() => idParamSchema.parse(invalidInput)).toThrow('Invalid ID format');
     });
 
-    it('should reject floating point id', () => {
+    it('小数点 ID を拒否する', () => {
       const invalidInput = { id: '12.5' };
 
       expect(() => idParamSchema.parse(invalidInput)).toThrow('Invalid ID format');
