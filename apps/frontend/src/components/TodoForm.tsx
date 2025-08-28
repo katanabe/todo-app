@@ -1,25 +1,25 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
+import { useState } from 'react';
 
 interface TodoFormProps {
-  onSubmit: (title: string, description?: string) => void
+  onSubmit: (title: string, description?: string) => void;
 }
 
 export default function TodoForm({ onSubmit }: TodoFormProps) {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!title.trim()) return
+    e.preventDefault();
+    if (!title.trim()) return;
 
-    onSubmit(title.trim(), description.trim() || undefined)
-    setTitle('')
-    setDescription('')
-    setIsExpanded(false)
-  }
+    onSubmit(title.trim(), description.trim() || undefined);
+    setTitle('');
+    setDescription('');
+    setIsExpanded(false);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -41,7 +41,7 @@ export default function TodoForm({ onSubmit }: TodoFormProps) {
           </button>
         )}
       </div>
-      
+
       {isExpanded && (
         <div className="space-y-3">
           <textarea
@@ -55,9 +55,9 @@ export default function TodoForm({ onSubmit }: TodoFormProps) {
             <button
               type="button"
               onClick={() => {
-                setIsExpanded(false)
-                setTitle('')
-                setDescription('')
+                setIsExpanded(false);
+                setTitle('');
+                setDescription('');
               }}
               className="px-3 py-1 text-gray-600 hover:text-gray-800 transition-colors"
             >
@@ -67,5 +67,5 @@ export default function TodoForm({ onSubmit }: TodoFormProps) {
         </div>
       )}
     </form>
-  )
+  );
 }

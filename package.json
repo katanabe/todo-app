@@ -8,15 +8,21 @@
     "dev": "pkill -f 'next dev' || pkill -f 'bun run --hot' || true && turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
-    "lint": "turbo run lint",
+    "lint": "biome lint ./apps",
+    "lint:fix": "biome lint --write ./apps",
+    "format": "biome format ./apps",
+    "format:fix": "biome format --write ./apps",
+    "check": "biome check ./apps",
+    "check:fix": "biome check --write ./apps",
     "db:push": "turbo run db:push",
     "db:generate": "turbo run db:generate",
     "clean": "turbo run clean"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.2",
     "turbo": "^2.5.6"
   },
-  "packageManager": "bun@1.1.42",
+  "packageManager": "bun@1.2.19",
   "engines": {
     "node": ">=18"
   }

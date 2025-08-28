@@ -1,19 +1,20 @@
-'use client'
+'use client';
 
 type Todo = {
-  id: number
-  title: string
-  description: string | null
-  completed: boolean
-  createdAt: string
-  updatedAt: string
-}
-import TodoItem from './TodoItem'
+  id: number;
+  title: string;
+  description: string | null;
+  completed: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+import TodoItem from './TodoItem';
 
 interface TodoListProps {
-  todos: Todo[]
-  onUpdate: (id: number, updates: Partial<Todo>) => void
-  onDelete: (id: number) => void
+  todos: Todo[];
+  onUpdate: (id: number, updates: Partial<Todo>) => void;
+  onDelete: (id: number) => void;
 }
 
 export default function TodoList({ todos, onUpdate, onDelete }: TodoListProps) {
@@ -23,7 +24,7 @@ export default function TodoList({ todos, onUpdate, onDelete }: TodoListProps) {
         <div className="text-lg font-medium">No tasks yet</div>
         <div className="text-sm">Add a task above to get started</div>
       </div>
-    )
+    );
   }
 
   return (
@@ -37,5 +38,5 @@ export default function TodoList({ todos, onUpdate, onDelete }: TodoListProps) {
         />
       ))}
     </div>
-  )
+  );
 }

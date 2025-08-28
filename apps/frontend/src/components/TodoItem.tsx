@@ -1,56 +1,62 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
+import { useState } from 'react';
+
 type Todo = {
-  id: number
-  title: string
-  description: string | null
-  completed: boolean
-  createdAt: string
-  updatedAt: string
-}
+  id: number;
+  title: string;
+  description: string | null;
+  completed: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
 
 interface TodoItemProps {
-  todo: Todo
-  onUpdate: (id: number, updates: Partial<Todo>) => void
-  onDelete: (id: number) => void
+  todo: Todo;
+  onUpdate: (id: number, updates: Partial<Todo>) => void;
+  onDelete: (id: number) => void;
 }
 
 export default function TodoItem({ todo, onUpdate, onDelete }: TodoItemProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  const [editTitle, setEditTitle] = useState(todo.title)
-  const [editDescription, setEditDescription] = useState(todo.description || '')
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(todo.title);
+  const [editDescription, setEditDescription] = useState(
+    todo.description || ''
+  );
 
   const handleToggleComplete = () => {
-    onUpdate(todo.id, { completed: !todo.completed })
-  }
+    onUpdate(todo.id, { completed: !todo.completed });
+  };
 
   const handleSaveEdit = () => {
-    if (!editTitle.trim()) return
-    
+    if (!editTitle.trim()) return;
+
     onUpdate(todo.id, {
       title: editTitle.trim(),
-      description: editDescription.trim() || null
-    })
-    setIsEditing(false)
-  }
+      description: editDescription.trim() || null,
+    });
+    setIsEditing(false);
+  };
 
   const handleCancelEdit = () => {
-    setEditTitle(todo.title)
-    setEditDescription(todo.description || '')
-    setIsEditing(false)
-  }
+    setEditTitle(todo.title);
+    setEditDescription(todo.description || '');
+    setIsEditing(false);
+  };
 
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this task?')) {
-      onDelete(todo.id)
+      onDelete(todo.id);
     }
-  }
+  };
 
   return (
-    <div className={`p-4 hover:bg-gray-50 transition-colors ${todo.completed ? 'opacity-60' : ''}`}>
+    <div
+      className={`p-4 hover:bg-gray-50 transition-colors ${todo.completed ? 'opacity-60' : ''}`}
+    >
       <div className="flex items-start space-x-3">
         <button
+          type="button"
           onClick={handleToggleComplete}
           className={`mt-1 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
             todo.completed
@@ -77,7 +83,6 @@ export default function TodoItem({ todo, onUpdate, onDelete }: TodoItemProps) {
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                autoFocus
               />
               <textarea
                 value={editDescription}
@@ -88,12 +93,14 @@ export default function TodoItem({ todo, onUpdate, onDelete }: TodoItemProps) {
               />
               <div className="flex justify-end space-x-2">
                 <button
+                  type="button"
                   onClick={handleCancelEdit}
                   className="px-3 py-1 text-gray-600 hover:text-gray-800 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
+                  type="button"
                   onClick={handleSaveEdit}
                   className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
                 >
@@ -103,35 +110,59 @@ export default function TodoItem({ todo, onUpdate, onDelete }: TodoItemProps) {
             </div>
           ) : (
             <div className="group">
-              <div
-                className={`font-medium ${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}
+              <button
+                type="button"
+                className={`font-medium text-left w-full ${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}
                 onClick={() => setIsEditing(true)}
               >
                 {todo.title}
-              </div>
+              </button>
               {todo.description && (
-                <div
-                  className={`mt-1 text-sm ${todo.completed ? 'line-through text-gray-400' : 'text-gray-600'}`}
+                <button
+                  type="button"
+                  className={`mt-1 text-sm text-left w-full ${todo.completed ? 'line-through text-gray-400' : 'text-gray-600'}`}
                   onClick={() => setIsEditing(true)}
                 >
                   {todo.description}
-                </div>
+                </button>
               )}
               <div className="flex justify-end space-x-1 opacity-0 group-hover:opacity-100 transition-opacity mt-2">
                 <button
+                  type="button"
                   onClick={() => setIsEditing(true)}
                   className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                    />
                   </svg>
                 </button>
                 <button
+                  type="button"
                   onClick={handleDelete}
                   className="p-1 text-gray-400 hover:text-red-600 transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
                   </svg>
                 </button>
               </div>
@@ -140,5 +171,5 @@ export default function TodoItem({ todo, onUpdate, onDelete }: TodoItemProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }
