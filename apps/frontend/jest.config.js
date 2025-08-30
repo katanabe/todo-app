@@ -5,10 +5,7 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  collectCoverageFrom: [
-    'src/**/*.{ts,js}',
-    '!src/**/*.d.ts',
-  ],
+  collectCoverageFrom: ['src/**/*.{ts,js}', '!src/**/*.d.ts'],
   preset: 'ts-jest/presets/default',
   extensionsToTreatAsEsm: ['.ts'],
   globals: {
@@ -16,4 +13,4 @@ module.exports = {
       useESM: true,
     },
   },
-}
+};

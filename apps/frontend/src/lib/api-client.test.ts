@@ -4,7 +4,7 @@ describe('API クライアント ロジック', () => {
       const baseUrl = 'http://localhost:3001';
       const id = '123';
       const expectedUrl = `${baseUrl}/api/todos/${id}`;
-      
+
       expect(expectedUrl).toBe('http://localhost:3001/api/todos/123');
     });
 
